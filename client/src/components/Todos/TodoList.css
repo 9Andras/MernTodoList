@@ -1,0 +1,55 @@
+.todo-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.todo-list h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.todo-list .visible {
+    visibility: visible;
+}
+
+.todo-list .hidden {
+    visibility: hidden;
+}
+
+.todo-list div {
+    background-color: #f8f8f8;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.todo-list h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.todo-list p {
+    margin-bottom: 10px;
+}
+
+.todo-list label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.todo-list button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.todo-list button:last-child {
+    margin-right: 0;
+}
