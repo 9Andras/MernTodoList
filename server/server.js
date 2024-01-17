@@ -77,7 +77,7 @@ app.post('/api/users/signUp', async (req, res) => {
 //get todos
 app.get('/api/todo', async (req, res) => {
     try {
-        const todos = await TodoList.find();
+        const todos = await TodoModel.find();
         res.json(todos);
     } catch (error) {
         console.error(error);
@@ -92,7 +92,7 @@ app.post('/api/todo', async (req, res) => {
     const createdAt = Date.now();
 
     try {
-        const todolist = new TodoList({title, comment, createdAt});
+        const todolist = new TodoModel({title, comment, createdAt});
         const savedList = await todolist.save();
         res.json(savedList);
     } catch (error) {
@@ -106,7 +106,7 @@ app.delete('/api/todo/:id', async (req, res) => {
     const {id} = req.params;
 
     try {
-        await TodoList.findByIdAndDelete(id);
+        await TodoModel.findByIdAndDelete(id);
         res.json({success: true});
     } catch (error) {
         console.error(error);
@@ -120,7 +120,7 @@ app.patch('/api/todo/:id', async (req, res) => {
     const {title, comment} = req.body;
 
     try {
-        let todoItem = await TodoList.findOne({_id: id});
+        let todoItem = await TodoModel.findOne({_id: id});
 
         if (req.body && title !== undefined) {
             todoItem.title = title;

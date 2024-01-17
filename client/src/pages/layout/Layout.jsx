@@ -1,4 +1,6 @@
 import {Link, Outlet} from "react-router-dom";
+import UserLogin from "../../components/user/UserLogin";
+import "./Layout.css"
 
 const Layout = () => (
     <div className="Layout">
@@ -14,6 +16,7 @@ const Layout = () => (
                 </li>
             </ul>
         </nav>
+        <UserLogin/>
         <Outlet/>
     </div>
 );

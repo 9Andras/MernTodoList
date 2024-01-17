@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
+import "./UserLogin.css"
 
 
 function UserLogin() {
@@ -24,7 +25,7 @@ function UserLogin() {
             resetForm();
             //onLogin(data._id);
         } catch (error) {
-            alert('An error occured while signing in! Please check your username and password, then try again!');
+            alert('An error occurred while signing in! Please check your username and password, then try again!');
             console.error('An error occurred while signing in:', error);
         }
     };
