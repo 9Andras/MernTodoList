@@ -1,5 +1,4 @@
 import {Link, Outlet} from "react-router-dom";
-import UserLogin from "../../components/user/UserLogin";
 import "./Layout.css"
 
 const Layout = () => (
@@ -14,9 +13,13 @@ const Layout = () => (
                         <button type="button">Add Todo</button>
                     </Link>
                 </li>
+                <li>
+                    <Link to="/login">
+                        <button type="button">Login</button>
+                    </Link>
+                </li>
             </ul>
         </nav>
-        <UserLogin/>
         <Outlet/>
     </div>
 );

@@ -75,7 +75,7 @@ app.post('/api/users/signUp', async (req, res) => {
 
 
 //get todos
-app.get('/api/todo', async (req, res) => {
+app.get('/api/users/:id/todos', async (req, res) => {
     try {
         const todos = await TodoModel.find();
         res.json(todos);
@@ -86,7 +86,7 @@ app.get('/api/todo', async (req, res) => {
 });
 
 //add todo
-app.post('/api/todo', async (req, res) => {
+app.post('/api/users/:id/todo', async (req, res) => {
     console.log(req.body);
     const {title, comment} = req.body;
     const createdAt = Date.now();
@@ -102,7 +102,7 @@ app.post('/api/todo', async (req, res) => {
 });
 
 //delete todo
-app.delete('/api/todo/:id', async (req, res) => {
+app.delete('/api/users/:id/todo/:id', async (req, res) => {
     const {id} = req.params;
 
     try {
@@ -115,23 +115,25 @@ app.delete('/api/todo/:id', async (req, res) => {
 });
 
 //edit todo
-app.patch('/api/todo/:id', async (req, res) => {
+app.patch('/api/users/:id/todo/:id', async (req, res) => {
     const {id} = req.params;
     const {title, comment} = req.body;
 
     try {
-        let todoItem = await TodoModel.findOne({_id: id});
-
-        if (req.body && title !== undefined) {
-            todoItem.title = title;
+        const updatedTodoItem = await TodoModel.findOneAndUpdate(
+            {_id: id},
+            {
+                $set: {
+                    title: title !== undefined ? title : undefined,
+                    comment: comment !== undefined ? comment : undefined
+                },
+            },
+            {new: true}
+        );
+        if (!updatedTodoItem) {
+            return res.status(404).json({success: false, message: "Todo item not found"});
         }
-
-        if (req.body && comment !== undefined) {
-            todoItem.comment = comment;
-        }
-
-        todoItem = await todoItem.save();
-        res.json(todoItem);
+        return res.json(updatedTodoItem);
     } catch (error) {
         console.error(error);
         res.status(400).json({success: false});

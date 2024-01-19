@@ -7,6 +7,9 @@ import reportWebVitals from './reportWebVitals';
 import Layout from './pages/layout/Layout';
 import ErrorPage from "./pages/ErrorPage";
 import UserLogin from './components/user/UserLogin';
+import UserSignUp from "./components/user/UserSignUp";
+import TodoForm from "./components/Todos/TodoForm";
+import TodoList from "./components/Todos/TodoList";
 
 const router = createBrowserRouter([
     {
@@ -18,6 +21,18 @@ const router = createBrowserRouter([
                 path: "/login",
                 element: <UserLogin/>
             },
+            {
+                path: "/register",
+                element: <UserSignUp/>
+            },
+            {
+                path: "/users/:id/todos",
+                element: <TodoList/>
+            },
+            {
+                path: "/users/:id/addTodo",
+                element: <TodoForm/>
+            }
         ],
     },
 ]);

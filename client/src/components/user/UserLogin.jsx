@@ -84,12 +84,7 @@ function UserLogin() {
             <p>
                 Don't have an account?{' '}
             </p>
-            <span
-                className="clickable-text"
-                onClick={handleSignUpClick}>
-        Click here to sign up!
-      </span>
-
+            <span className="clickable-text" onClick={handleSignUpClick}> Click here to sign up </span>
         </div>
     );
 }

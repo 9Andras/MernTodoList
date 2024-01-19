@@ -12,9 +12,9 @@ function TodoList({visible}) {
         fetchTodos();
     }, []);
 
-    const fetchTodos = async () => {
+    const fetchTodos = async (userId) => {
         try {
-            const response = await fetch('/api/todo');
+            const response = await fetch(`/api/users/${userId}/todos`);
             const data = await response.json();
             setTodos(data);
         } catch (error) {
@@ -22,22 +22,22 @@ function TodoList({visible}) {
         }
     };
 
-    const handleRemoveTodo = async (id) => {
+    const handleDeleteTodo = async (userId, todoId) => {
         if (window.confirm('Confirm deletion of todo')) {
             try {
-                await fetch(`/api/todo/${id}`, {
+                await fetch(`/api/users/${userId}/todo/${todoId}`, {
                     method: 'DELETE',
                 });
-                setTodos(todos.filter((todo) => todo._id !== id));
+                setTodos(todos.filter((todo) => todo._id !== todoId));
             } catch (error) {
                 console.log(error);
             }
         }
     };
 
-    const handleEditTodo = async (id) => {
+    const handleEditTodo = async (userId, todoId) => {
         try {
-            const response = await fetch(`/api/todo/${id}`, {
+            const response = await fetch(`/api/users/${userId}/todo/${todoId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ function TodoList({visible}) {
                 body: JSON.stringify({title: editTitle, comment: editComment}),
             });
             const updatedTodo = await response.json();
-            setTodos(todos.map(todo => todo._id === id ? updatedTodo : todo));
+            setTodos(todos.map(todo => todo._id === todoId ? updatedTodo : todo));
             setEditingId(null);
         } catch (error) {
             console.log(error);
@@ -74,12 +74,17 @@ function TodoList({visible}) {
                         {editingId === todo._id ? (
                             <>
                                 <td>
-                                    <input type="text" value={editTitle} onChange={e => setEditTitle(e.target.value)}
-                                           required/>
+                                    <input
+                                        type="text"
+                                        value={editTitle}
+                                        onChange={e => setEditTitle(e.target.value)}
+                                        required/>
                                 </td>
                                 <td>
-                                    <input type="text" value={editComment}
-                                           onChange={e => setEditComment(e.target.value)} required/>
+                                    <input
+                                        type="text"
+                                        value={editComment}
+                                        onChange={e => setEditComment(e.target.value)} required/>
                                 </td>
                                 <td>
                                     <button onClick={() => handleEditTodo(todo._id)}>Save</button>
@@ -91,7 +96,7 @@ function TodoList({visible}) {
                                 <td>{todo.title}</td>
                                 <td>{todo.comment}</td>
                                 <td>
-                                    <button onClick={() => handleRemoveTodo(todo._id)}>Remove</button>
+                                    <button onClick={() => handleDeleteTodo(todo._id)}>Remove</button>
                                     <button onClick={() => editTodo(todo)}>Edit</button>
                                 </td>
                             </>

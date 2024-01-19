@@ -4,11 +4,11 @@ function TodoForm({onSubmit}) {
     const [title, setTitle] = useState('');
     const [comment, setComment] = useState('');
 
-    const handleFormSubmit = async (e) => {
+    const handleFormSubmit = async (e, userId) => {
         e.preventDefault();
         const data = {title, comment};
         try {
-            const response = await fetch('/api/todo', {
+            const response = await fetch(`/api/users/${userId}/todo`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

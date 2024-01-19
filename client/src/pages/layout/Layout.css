@@ -9,11 +9,13 @@
     font-size: 1.5rem;
     font-weight: bold;
 }
+
 .Layout nav a {
     color: white !important;
 }
-.Layout nav a:hover{
-    text-shadow:  0 0 5px rgb(255, 255, 255);
+
+.Layout nav a:hover {
+    text-shadow: 0 0 5px rgb(255, 255, 255);
 }
 
 .Layout nav button {

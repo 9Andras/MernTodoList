@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
-import "/UserSignUp.css"
+import "./UserSignUp.css";
 
-function UserSignUp({onSignUpComplete, onBackToLogin}) {
+function UserSignUp() {
 
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
@@ -29,7 +29,6 @@ function UserSignUp({onSignUpComplete, onBackToLogin}) {
             if (jsonResponse.success) {
                 setRegistrationSuccess(true);
                 setRegisteredUsername(jsonResponse.username);
-                onSignUpComplete();
             }
         } catch (error) {
             console.error(error);
@@ -46,7 +45,7 @@ function UserSignUp({onSignUpComplete, onBackToLogin}) {
     };
 
     const handleBackToLoginClick = () => {
-        onBackToLogin();
+        //TODO: make it go back to login form
     }
 
     return (
