@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 
-function TodoForm({onSubmit}) {
+function AddTodo() {
     const [title, setTitle] = useState('');
     const [comment, setComment] = useState('');
 
-    const handleFormSubmit = async (e, userId) => {
+    const handleAddTodo = async (e, userId) => {
         e.preventDefault();
         const data = {title, comment};
         try {
@@ -18,7 +18,6 @@ function TodoForm({onSubmit}) {
             if (response.ok) {
                 const responseData = await response.json();
                 console.log(responseData);
-                onSubmit();
                 resetForm();
             } else {
                 console.error('Failed to submit data');
@@ -34,7 +33,7 @@ function TodoForm({onSubmit}) {
     }
 
     return (
-        <form onSubmit={handleFormSubmit}>
+        <form onSubmit={handleAddTodo}>
             <label>
                 Title:
                 <input
@@ -59,4 +58,4 @@ function TodoForm({onSubmit}) {
 
 }
 
-export default TodoForm;
+export default AddTodo;

@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import './TodoList.css';
+import './TodoList.css'
+import AddTodo from "./AddTodo";
 
-function TodoList({visible}) {
+function TodoList() {
     const [todos, setTodos] = useState([]);
     const [editingId, setEditingId] = useState(null);
     const [editTitle, setEditTitle] = useState('');
@@ -12,6 +13,9 @@ function TodoList({visible}) {
         fetchTodos();
     }, []);
 
+    //C.R.U.D.:
+    //Create handled in AddTodo Component
+    //Read
     const fetchTodos = async (userId) => {
         try {
             const response = await fetch(`/api/users/${userId}/todos`);
@@ -22,19 +26,7 @@ function TodoList({visible}) {
         }
     };
 
-    const handleDeleteTodo = async (userId, todoId) => {
-        if (window.confirm('Confirm deletion of todo')) {
-            try {
-                await fetch(`/api/users/${userId}/todo/${todoId}`, {
-                    method: 'DELETE',
-                });
-                setTodos(todos.filter((todo) => todo._id !== todoId));
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    };
-
+    //Update
     const handleEditTodo = async (userId, todoId) => {
         try {
             const response = await fetch(`/api/users/${userId}/todo/${todoId}`, {
@@ -51,6 +43,22 @@ function TodoList({visible}) {
             console.log(error);
         }
     };
+
+    //Delete
+    const handleDeleteTodo = async (userId, todoId) => {
+        if (window.confirm('Confirm deletion of todo')) {
+            try {
+                await fetch(`/api/users/${userId}/todo/${todoId}`, {
+                    method: 'DELETE',
+                });
+                setTodos(todos.filter((todo) => todo._id !== todoId));
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    };
+
+
     const editTodo = (todo) => {
         setEditTitle(todo.title);
         setEditComment(todo.comment);
@@ -58,7 +66,8 @@ function TodoList({visible}) {
     }
 
     return (
-        <div className={`todo-list ${visible ? 'visible' : 'hidden'}`}>
+        <>
+            <AddTodo/>
             <h2>Todo List</h2>
             <table>
                 <thead>
@@ -105,7 +114,7 @@ function TodoList({visible}) {
                 ))}
                 </tbody>
             </table>
-        </div>
+        </>
     );
 }
 

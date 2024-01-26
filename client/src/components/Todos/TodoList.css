@@ -11,13 +11,13 @@
     margin-bottom: 20px;
 }
 
-.todo-list .visible {
+/*.todo-list .visible {
     visibility: visible;
 }
 
 .todo-list .hidden {
     visibility: hidden;
-}
+}*/
 
 .todo-list div {
     background-color: #f8f8f8;

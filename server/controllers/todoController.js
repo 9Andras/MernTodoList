@@ -1,4 +1,5 @@
 const TodoModel = require("../model/Todo");
+const UserModel = require("../model/User");
 
 
 //C.R.U.D.: Create, Read, Update, Delete
@@ -6,12 +7,19 @@ const TodoModel = require("../model/Todo");
 async function addTodo(req, res) {
     console.log(req.body);
     const {title, comment} = req.body;
+    const {userId} = req.params;
     const createdAt = Date.now();
 
     try {
-        const todolist = new TodoModel({title, comment, createdAt});
-        const savedList = await todolist.save();
-        res.json(savedList);
+        const user = await UserModel.findById(userId);
+        if (!user) {
+            return res.status(404).json({success: false, message: "User not found!"});
+        }
+        const todoItem = new TodoModel({title, comment, createdAt});
+        user.todos.push(todoItem);
+        await Promise.all([todoItem.save(), user.save()]);
+
+        res.json(todoItem);
     } catch (error) {
         console.error(error);
         res.status(400).json({success: false});
@@ -20,10 +28,15 @@ async function addTodo(req, res) {
 
 
 //read
-async function getTodos(req,res){
+async function getTodos(req, res) {
+    const {userId} = req.params;
     try {
-        const todos = await TodoModel.find();
-        res.json(todos);
+        const user = await UserModel.findById(userId);
+        if (!user) {
+            return res.status(404).json({success: false, message: "User not found!"})
+        }
+
+        res.json(user.todos.populate());
     } catch (error) {
         console.error(error);
         res.status(400).json({success: false});
@@ -32,10 +45,19 @@ async function getTodos(req,res){
 
 //update
 async function editTodo(req, res) {
-    const {id} = req.params;
+    const {userId, id} = req.params;
     const {title, comment} = req.body;
 
     try {
+        const user = await UserModel.findById(userId);
+        if (!user) {
+            return res.status(404).json({success: false, message: "User not found!"});
+        }
+        const todoToUpdate = user.todos.find(todoId => todoId.toString() === id);
+        if (!todoToUpdate) {
+            return res.status(404).json({success: false, message: "Todo item not found for the user"});
+        }
+
         const updatedTodoItem = await TodoModel.findOneAndUpdate(
             {_id: id},
             {
@@ -57,11 +79,21 @@ async function editTodo(req, res) {
 }
 
 //delete
-async function deleteTodo(req, res){
-    const {id} = req.params;
+async function deleteTodo(req, res) {
+    const {userId, id} = req.params;
 
     try {
-        await TodoModel.findByIdAndDelete(id);
+        const user = await UserModel.findById(userId);
+        if (!user) {
+            return res.status(404).json({success: false, message: "User not found!"});
+        }
+
+        const todoToDelete = user.todos.find(todoId => todoId.toString() === id);
+        if (!todoToDelete) {
+            return res.status(404).json({success: false, message: "Todo item not found for the user"});
+        }
+
+        await Promise.all([TodoModel.findByIdAndDelete(id), user.save()]);
         res.json({success: true});
     } catch (error) {
         console.error(error);
