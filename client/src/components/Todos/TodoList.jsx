@@ -68,7 +68,7 @@ function TodoList() {
     return (
         <>
             <AddTodo/>
-            <h2>Todo List</h2>
+            <h2>My Todos</h2>
             <table>
                 <thead>
                 <tr>

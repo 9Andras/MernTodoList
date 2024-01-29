@@ -8,7 +8,6 @@ import Layout from './pages/layout/Layout';
 import ErrorPage from "./pages/ErrorPage";
 import UserLogin from './components/user/UserLogin';
 import UserSignUp from "./components/user/UserSignUp";
-import AddTodo from "./components/Todos/AddTodo";
 import TodoList from "./components/Todos/TodoList";
 
 const router = createBrowserRouter([
@@ -29,14 +28,6 @@ const router = createBrowserRouter([
                 path: "/users/:id/todos",
                 element: <TodoList/>
             },
-            {
-                path: "/users/:id/addTodo",
-                element: <AddTodo/>
-            },
-            {
-                path: "/todoList",
-                element: <TodoList/>
-            }
         ],
     },
 ]);

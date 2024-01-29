@@ -15,20 +15,20 @@ h3 {
     margin-bottom: 1em;
 }
 
-.UserSignInForm {
+.UserSignUpForm {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
-.UserSignInForm label {
+.UserSignUpForm label {
     color: black;
     margin-bottom: 1em;
     font-size: 1rem;
 }
 
-.UserSignInForm input[type="text"],
-.UserSignInForm input[type="password"] {
+.UserSignUpForm input[type="text"],
+.UserSignUpForm input[type="password"] {
     padding: 0.5em;
     border-radius: 5px;
     border: 1px solid #ccc;

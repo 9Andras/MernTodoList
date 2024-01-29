@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 import "./UserSignUp.css";
@@ -10,6 +11,8 @@ function UserSignUp() {
     const [showPassword, setShowPassword] = useState(false);
     const [registrationSuccess, setRegistrationSuccess] = useState(false);
     const [registeredUsername, setRegisteredUsername] = useState('');
+
+    const navigate = useNavigate();
 
     const handleSignUpSubmit = async (e) => {
         e.preventDefault();
@@ -45,15 +48,15 @@ function UserSignUp() {
     };
 
     const handleBackToLoginClick = () => {
-        //TODO: make it go back to login form
-    }
+        navigate('/login')
+    };
 
     return (
         <div className="form-container" id="signup">
             <h3>Create your account here!</h3>
             {!registrationSuccess ? (
                 <>
-                    <form onSubmit={handleSignUpSubmit}>
+                    <form className="UserSignUpForm" onSubmit={handleSignUpSubmit}>
                         <label>
                             User Name:
                             <input
@@ -78,9 +81,12 @@ function UserSignUp() {
                                     onClick={handleTogglePasswordVisibility}/>
                             </div>
                         </label>
-                        <button id="submitcomplete" type="submit">Complete sign up</button>
+                        <button
+                            id="submitcomplete"
+                            type="submit">Complete sign up
+                        </button>
                     </form>
-                    <span className="clickable-text" onClick={handleBackToLoginClick}>Back to Login</span>
+                    <span className="clickable-text" onClick={() => handleBackToLoginClick()}>Login</span>
                 </>
             ) : (
                 <div>

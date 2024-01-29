@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 import "./UserLogin.css"
@@ -9,6 +10,7 @@ function UserLogin() {
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
 
+    const navigate = useNavigate();
 
     const handleSignInSubmit = async (user) => {
         try {
@@ -23,7 +25,6 @@ function UserLogin() {
             }
             //console.log(data)
             resetForm();
-            //onLogin(data._id);
         } catch (error) {
             alert('An error occurred while signing in! Please check your username and password, then try again!');
             console.error('An error occurred while signing in:', error);
@@ -44,9 +45,8 @@ function UserLogin() {
         setShowPassword(!showPassword);
     };
 
-    const handleSignUpClick = (e) => {
-        e.preventDefault();
-        //onSignUp();
+    const handleSignUpClick = () => {
+        navigate('/register')
     };
 
 
@@ -54,7 +54,7 @@ function UserLogin() {
         <div className="form-container" id="signin">
             <h3>Already have an account?</h3>
             <h3>Sign in here!</h3>
-            <form className="UserSignInForm" onSubmit={onSubmit}>
+            <form className="UserSignUpForm" onSubmit={onSubmit}>
                 <label>
                     User Name:
                     <input type="text" value={userName} onChange={(e) => setUserName(e.target.value)}
@@ -84,7 +84,7 @@ function UserLogin() {
             <p>
                 Don't have an account?{' '}
             </p>
-            <span className="clickable-text" onClick={handleSignUpClick}> Click here to sign up </span>
+            <span className="clickable-text" onClick={() => handleSignUpClick()}> Click here to sign up </span>
         </div>
     );
 }
