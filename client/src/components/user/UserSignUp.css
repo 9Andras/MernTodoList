@@ -23,7 +23,8 @@
 }
 
 .UserSignUpForm input[type="text"],
-.UserSignUpForm input[type="password"] {
+.UserSignUpForm input[type="password"],
+.UserSignUpForm input[type="email"]{
     padding: 0.5em;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -31,6 +32,7 @@
     width: 100%;
     box-sizing: border-box;
 }
+
 
 /* Password input container */
 .password-input-container {

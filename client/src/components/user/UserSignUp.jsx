@@ -7,6 +7,7 @@ import "./UserSignUp.css";
 function UserSignUp() {
 
     const [userName, setUserName] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [registrationSuccess, setRegistrationSuccess] = useState(false);
@@ -16,9 +17,9 @@ function UserSignUp() {
 
     const handleSignUpSubmit = async (e) => {
         e.preventDefault();
-        const data = {userName, password};
+        const data = {userName, email, password};
         try {
-            const response = await fetch('/api/users', {
+            const response = await fetch('/api/users/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -40,7 +41,9 @@ function UserSignUp() {
 
     const resetForm = () => {
         setUserName('');
+        setEmail('');
         setPassword('');
+
     };
 
     const handleTogglePasswordVisibility = () => {
@@ -65,6 +68,15 @@ function UserSignUp() {
                                 onChange={(e) => setUserName(e.target.value)}
                                 required
                             />
+                        </label>
+                        <label>
+                            Email Address:
+                                <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
                         </label>
                         <label>
                             Password:

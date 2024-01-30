@@ -3,9 +3,23 @@ const bcrypt = require('bcrypt');
 const {Schema, model} = mongoose;
 
 const userSchema = new Schema({
-    userName: String,
-    password: String,
-    createdAt: Date,
+    userName: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
+    },
     todos: [{
         type: Schema.Types.ObjectId,
         ref: 'Todo'

@@ -1,5 +1,5 @@
-const TodoModel = require("../model/Todo");
-const UserModel = require("../model/User");
+const TodoModel = require("../model/todo.model");
+const UserModel = require("../model/user.model");
 
 
 //C.R.U.D.: Create, Read, Update, Delete

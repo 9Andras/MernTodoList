@@ -1,9 +1,9 @@
-const UserModel = require("../model/User");
+const UserModel = require("../model/user.model");
 const {compare} = require("bcrypt");
 
-async function loginUser(req, res){
+async function loginUser(req, res) {
+    const {userName, password} = req.body;
     try {
-        const {userName, password} = req.body;
         const user = UserModel.findOne({userName});
         if (!user) {
             return res.status(400).json({message: 'User not found.'});
@@ -20,13 +20,23 @@ async function loginUser(req, res){
     }
 }
 
-async function signUpUser(req,res) {
+async function signUpUser(req, res) {
+    const {userName, email, password} = req.body;
     try {
-        console.log(req.body);
-        const {userName, password} = req.body;
+        const existingUser = await UserModel.findOne({userName});
+        if (existingUser) {
+            return res.status(400).json({message: 'Username already in use!'});
+        }
+        const existingEmail = await UserModel.findOne({email});
+        if (existingEmail) {
+            return res.status(400).json({message: 'Email address already in use!'})
+        }
+
+        //console.log(req.body);
         const createdAt = Date.now();
         const users = new UserModel({
             userName,
+            email,
             password,
             createdAt,
         });

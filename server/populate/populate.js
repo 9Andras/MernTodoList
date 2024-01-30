@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 const users = require("./users.json");
 const todos = require("./todos.json");
 
-const TodoList = require("../model/Todo.js");
-const UserModel = require("../model/User.js");
+const TodoList = require("../model/todo.model.js");
+const UserModel = require("../model/user.model.js");
 
 const mongoUrl = process.env.MONGO_URL;
 
