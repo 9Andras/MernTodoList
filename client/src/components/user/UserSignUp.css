@@ -24,7 +24,7 @@
 
 .UserSignUpForm input[type="text"],
 .UserSignUpForm input[type="password"],
-.UserSignUpForm input[type="email"]{
+.UserSignUpForm input[type="email"] {
     padding: 0.5em;
     border-radius: 5px;
     border: 1px solid #ccc;

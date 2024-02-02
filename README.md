@@ -14,9 +14,8 @@ maybe continue refining/using my work.
 ### Setup Instructions:
 
 - create a mongoDB cluster or database for yourself (follow this page: https://www.mongodb.com/basics/create-database)
-- run ` npm install ` to install the needed packages (these packages will be: express, nodemon, mongoose, dotenv,
-  open-props, etc.)
-- rename the dotenvexample.txt files to `.env ` and adjust the connection link to match yours
+- run ` npm install ` to install the needed packages (these packages will be: express, nodemon, mongoose, dotenv, etc.)
+- rename the dotenvexample.txt files to `.env ` and adjust the connection link to match yours, also make your `SECRET` for token generation
 - run the command `node populate.js` while in the populate directory (this will populate the DB with some users and
   their random todos using the 2 json file in the populate directory)
 

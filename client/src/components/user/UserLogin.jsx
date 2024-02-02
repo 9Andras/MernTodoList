@@ -52,8 +52,7 @@ function UserLogin() {
 
     return (
         <div className="form-container" id="signin">
-            <h3>Already have an account?</h3>
-            <h3>Sign in here!</h3>
+            <h3>Log in</h3>
             <form className="UserSignUpForm" onSubmit={onSubmit}>
                 <label>
                     User Name:
@@ -78,7 +77,7 @@ function UserLogin() {
                 </label>
                 <button
                     id="submitlogin"
-                    type="submit">Login
+                    type="submit">Log in
                 </button>
             </form>
             <p>

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {addTodo, getTodos, editTodo, deleteTodo} = require("../controllers/todoController");
 
+//CRUD routes
 router.post("/todo", addTodo);
 router.get("/todos", getTodos);
 router.patch("/todo/:id", editTodo);

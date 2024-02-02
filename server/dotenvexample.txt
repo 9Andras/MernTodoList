@@ -1,3 +1,6 @@
-//rename to .env and adjust the connection link below to match yours
+/*rename this file to .env and adjust the connection link below to match yours*/
 
 MONGO_URL=mongodb+srv://myDatabaseUser:D1fficultP%40ssw0rd@cluster0.example.mongodb.net/databasename?retryWrites=true&w=majority
+
+/*best make this with a password generator like LastPass*/
+SECRET=*randomnumberofcharactersthemorethebetter*

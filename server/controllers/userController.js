@@ -1,55 +1,89 @@
 const UserModel = require("../model/user.model");
 const {compare} = require("bcrypt");
+const validator = require('validator');
+const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+
+
+const createToken = (_id, userName) => {
+    return jwt.sign({_id, userName}, process.env.SECRET, {expiresIn: '3d'})
+};
+
 
 async function loginUser(req, res) {
     const {userName, password} = req.body;
+
+    if (!userName || !password) {
+        return res.status(422).json({message: 'Username and password fields must be filled'});
+    }
     try {
         const user = UserModel.findOne({userName});
         if (!user) {
             return res.status(400).json({message: 'User not found.'});
         }
+
         const match = await compare(password, user.password);
         if (!match) {
             return res.status(400).json({message: 'Invalid password'});
         }
+
+        const token = createToken(user._id);
+
         user.password = null;
-        return res.json(user);
+
+        return res.status(200).json(user, token);
     } catch (error) {
         console.error(error);
         res.status(500).json({message: 'Server error.'});
     }
 }
 
-async function signUpUser(req, res) {
+async function signupUser(req, res) {
     const {userName, email, password} = req.body;
     try {
+        if (!userName || !email || !password) {
+            return res.status(422).json({message: 'All fields must be filled'});
+        }
+        if (!validator.isEmail(email)) {
+            return res.status(422).json({message: 'Email is not valid'});
+        }
+        if (!validator.isStrongPassword(password)) {
+            return res.status(422).json({message: 'Password not strong enough'});
+        }
+
         const existingUser = await UserModel.findOne({userName});
         if (existingUser) {
             return res.status(400).json({message: 'Username already in use!'});
         }
         const existingEmail = await UserModel.findOne({email});
         if (existingEmail) {
-            return res.status(400).json({message: 'Email address already in use!'})
+            return res.status(400).json({message: 'Email address already in use!'});
         }
 
-        //console.log(req.body);
         const createdAt = Date.now();
-        const users = new UserModel({
+        const userToSave = new UserModel({
             userName,
             email,
             password,
             createdAt,
         });
-        const savedUser = await users.save();
+        const savedUser = await userToSave.save();
+
+        const token = createToken(savedUser._id)
+
         savedUser.password = null;
-        res.json(savedUser);
+        return res.status(200).json({savedUser, token});
     } catch (error) {
         console.error(error);
-        res.status(500).json({message: 'Server error'});
+        if (error instanceof mongoose.Error.ValidationError) {
+            return res.status(400).json({message: error.message});
+        } else {
+            return res.status(500).json({message: 'Server error'});
+        }
     }
 }
 
 module.exports = {
     loginUser,
-    signUpUser,
+    signupUser,
 };
