@@ -25,10 +25,11 @@ function UserSignUp() {
     };
 
     const resetForm = () => {
-        setUserName('');
-        setEmail('');
-        setPassword('');
-
+        if (!error) {
+            setUserName('');
+            setEmail('');
+            setPassword('');
+        }
     };
 
     const handleTogglePasswordVisibility = () => {
@@ -78,16 +79,16 @@ function UserSignUp() {
                             />
                         </div>
                     </label>
-                    <button
-                        id="submitcomplete"
-                        disabled={isLoading}
-                        type="submit">Complete sign up
-                    </button>
                     {error &&
                         <div className="error">
                             {error}
                         </div>
                     }
+                    <button
+                        id="submitcomplete"
+                        disabled={isLoading}
+                        type="submit">Complete sign up
+                    </button>
                 </form>
                 <span
                     className="clickable-text"

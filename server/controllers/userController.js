@@ -31,7 +31,7 @@ async function loginUser(req, res) {
 
         user.password = null;
 
-        return res.status(200).json(user, token);
+        return res.status(200).json({user, token});
     } catch (error) {
         console.error(error);
         res.status(500).json({message: 'Server error.'});
@@ -42,22 +42,22 @@ async function signupUser(req, res) {
     const {userName, email, password} = req.body;
     try {
         if (!userName || !email || !password) {
-            return res.status(422).json({message: 'All fields must be filled'});
+            return res.status(422).json({error: 'All fields must be filled'});
         }
         if (!validator.isEmail(email)) {
-            return res.status(422).json({message: 'Email is not valid'});
+            return res.status(422).json({error: 'Email is not valid'});
         }
         if (!validator.isStrongPassword(password)) {
-            return res.status(422).json({message: 'Password not strong enough'});
+            return res.status(422).json({error: 'Password not strong enough'});
         }
 
         const existingUser = await UserModel.findOne({userName});
         if (existingUser) {
-            return res.status(400).json({message: 'Username already in use!'});
+            return res.status(400).json({error: 'Username already in use!'});
         }
         const existingEmail = await UserModel.findOne({email});
         if (existingEmail) {
-            return res.status(400).json({message: 'Email address already in use!'});
+            return res.status(400).json({error: 'Email address already in use!'});
         }
 
         const createdAt = Date.now();
@@ -76,9 +76,9 @@ async function signupUser(req, res) {
     } catch (error) {
         console.error(error);
         if (error instanceof mongoose.Error.ValidationError) {
-            return res.status(400).json({message: error.message});
+            return res.status(400).json({error: error.message});
         } else {
-            return res.status(500).json({message: 'Server error'});
+            return res.status(500).json({error: 'Server error'});
         }
     }
 }

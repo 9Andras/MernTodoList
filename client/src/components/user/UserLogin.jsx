@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
+
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 import "./UserLogin.css"
@@ -21,7 +22,7 @@ function UserLogin() {
             });
             const data = await response.json();
             if (!response.ok) {
-                throw new Error(data.message);
+                console.error(data.message);
             }
             //console.log(data)
             resetForm();
