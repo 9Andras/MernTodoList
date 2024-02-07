@@ -13,25 +13,29 @@ const createToken = (_id, userName) => {
 async function loginUser(req, res) {
     const {userName, password} = req.body;
 
-    if (!userName || !password) {
-        return res.status(422).json({message: 'Username and password fields must be filled'});
-    }
     try {
-        const user = UserModel.findOne({userName});
-        if (!user) {
-            return res.status(400).json({message: 'User not found.'});
+        //check if fields filled out
+        if (!userName || !password) {
+            return res.status(422).json({error: 'Username and password fields must be filled'});
         }
 
+        //find user if exists, return error if not
+        const user = await UserModel.findOne({userName});
+        if (!user) {
+            return res.status(400).json({error: 'User not found.'});
+        }
+
+        //compare hashed passwords
         const match = await compare(password, user.password);
         if (!match) {
-            return res.status(400).json({message: 'Invalid password'});
+            return res.status(400).json({error: 'Invalid password'});
         }
-
+        //create token
         const token = createToken(user._id);
-
+        //don't send password
         user.password = null;
-
-        return res.status(200).json(user, token);
+        //send response
+        return res.status(200).json({userName, token});
     } catch (error) {
         console.error(error);
         res.status(500).json({message: 'Server error.'});
@@ -40,27 +44,32 @@ async function loginUser(req, res) {
 
 async function signupUser(req, res) {
     const {userName, email, password} = req.body;
+
     try {
+        //input and "already in use" checks
         if (!userName || !email || !password) {
-            return res.status(422).json({message: 'All fields must be filled'});
+            return res.status(422).json({error: 'All fields must be filled'});
         }
         if (!validator.isEmail(email)) {
-            return res.status(422).json({message: 'Email is not valid'});
+            return res.status(422).json({error: 'Email is not valid'});
         }
         if (!validator.isStrongPassword(password)) {
-            return res.status(422).json({message: 'Password not strong enough'});
+            return res.status(422).json({error: 'Password not strong enough'});
         }
 
         const existingUser = await UserModel.findOne({userName});
         if (existingUser) {
-            return res.status(400).json({message: 'Username already in use!'});
+            return res.status(400).json({error: 'Username already in use!'});
         }
         const existingEmail = await UserModel.findOne({email});
         if (existingEmail) {
-            return res.status(400).json({message: 'Email address already in use!'});
+            return res.status(400).json({error: 'Email address already in use!'});
         }
 
+        //add createdAt value
         const createdAt = Date.now();
+
+        //saving the user to db
         const userToSave = new UserModel({
             userName,
             email,
@@ -68,17 +77,18 @@ async function signupUser(req, res) {
             createdAt,
         });
         const savedUser = await userToSave.save();
-
+        //create token
         const token = createToken(savedUser._id)
-
+        //don't send password to frontend
         savedUser.password = null;
+        //returning response
         return res.status(200).json({savedUser, token});
     } catch (error) {
         console.error(error);
         if (error instanceof mongoose.Error.ValidationError) {
-            return res.status(400).json({message: error.message});
+            return res.status(400).json({error: error.message});
         } else {
-            return res.status(500).json({message: 'Server error'});
+            return res.status(500).json({error: 'Server error'});
         }
     }
 }

@@ -6,9 +6,9 @@ import reportWebVitals from './reportWebVitals';
 
 import Layout from './pages/layout/Layout';
 import ErrorPage from "./pages/ErrorPage";
-import UserLogin from './components/user/UserLogin';
-import UserSignUp from "./components/user/UserSignUp";
-import TodoList from "./components/Todos/TodoList";
+import Login from './pages/Login';
+import SignUp from "./pages/SignUp";
+import Homepage from "./pages/Homepage";
 import {AuthContextProvider} from "./context/AuthContext";
 
 const router = createBrowserRouter([
@@ -19,15 +19,15 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/login",
-                element: <UserLogin/>
+                element: <Login/>
             },
             {
                 path: "/register",
-                element: <UserSignUp/>
+                element: <SignUp/>
             },
             {
                 path: "/users/:id/todos",
-                element: <TodoList/>
+                element: <Homepage/>
             },
         ],
     },

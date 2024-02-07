@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import './TodoList.css'
-import AddTodo from "./AddTodo";
+import './Homepage.css'
+import AddTodo from "../components/Todos/AddTodo";
 
-function TodoList() {
+function Homepage() {
     const [todos, setTodos] = useState([]);
     const [editingId, setEditingId] = useState(null);
     const [editTitle, setEditTitle] = useState('');
@@ -118,4 +118,4 @@ function TodoList() {
     );
 }
 
-export default TodoList;
+export default Homepage;

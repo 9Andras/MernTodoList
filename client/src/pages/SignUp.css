@@ -74,3 +74,13 @@
 .clickable-text:hover {
     color: #9b9595;
 }
+
+.error {
+    --error: #e7195a;
+    border: 1px solid var(--error);
+    border-radius: 5px;
+    padding: 0.2em 0.5em;
+    background-color: rgba(248, 163, 163, 0.43);
+    text-align: center;
+
+}
