@@ -35,8 +35,8 @@ async function getTodos(req, res) {
         if (!user) {
             return res.status(404).json({success: false, message: "User not found!"})
         }
-
-        res.json(user.todos.populate());
+        const todos = user.todos.populate().sort({createdAt: -1});
+        return res.status(200).json(todos);
     } catch (error) {
         console.error(error);
         res.status(400).json({success: false});

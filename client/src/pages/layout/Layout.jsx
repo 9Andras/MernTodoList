@@ -1,28 +1,13 @@
-import {Link, Outlet} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import "./Layout.css"
+import Navbar from "../../components/Navbar";
 
 function Layout() {
 
     return (
         <>
             <div className="Layout">
-                <nav>
-                    <ul>
-                        <li className="grow">
-                            <Link to="/">HOME</Link>
-                        </li>
-                        <li>
-                            <Link to="/login">
-                                <button type="button">Login</button>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/register">
-                                <button type="button">Register</button>
-                            </Link>
-                        </li>
-                    </ul>
-                </nav>
+                <Navbar/>
                 <Outlet/>
             </div>
         </>

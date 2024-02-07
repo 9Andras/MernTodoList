@@ -1,6 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const {addTodo, getTodos, editTodo, deleteTodo} = require("../controllers/todoController");
+const {
+    addTodo,
+    getTodos,
+    editTodo,
+    deleteTodo
+} = require("../controllers/todoController");
+const requireAuth = require('../middleware/requireAuth');
+
+//require auth for all todos
+router.use(requireAuth);
 
 //CRUD routes
 router.post("/todo", addTodo);
