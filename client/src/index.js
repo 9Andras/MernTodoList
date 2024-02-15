@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import SignUp from "./pages/SignUp";
 import Homepage from "./pages/Homepage";
 import {AuthContextProvider} from "./context/AuthContext";
+import {TodoContextProvider} from "./context/TodoContext";
 
 const router = createBrowserRouter([
     {
@@ -37,7 +38,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <AuthContextProvider>
-            <RouterProvider router={router}/>
+            <TodoContextProvider>
+                <RouterProvider router={router}/>
+            </TodoContextProvider>
         </AuthContextProvider>
     </React.StrictMode>
 );
