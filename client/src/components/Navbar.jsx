@@ -12,32 +12,34 @@ function Navbar() {
     }
 
     return (
-        <nav>
-            <ul>
-                <li className="grow">
-                    <Link to="/">
-                        HOME
-                    </Link>
-                </li>
-                {user ? (
-                    <div className="user-info">
-                        <li>
-                            {user.userName}
-                        </li>
-                        <li>
-                            <button onClick={handleClick}>Log out</button>
-                        </li>
-                    </div>
-                ) : (
-                    <li>
-                        <Link to="/login">
-                            <button type="button">Login</button>
-                        </Link>
-                    </li>
-                )}
-            </ul>
+        <header>
+            <div className="navbar">
+                <Link to="/">
+                    <h1>Task Forge</h1>
+                </Link>
+                <nav>
+                    {user ? (
+                        <div className="user-info">
+                            <span>{user.user.userName}</span>
+                            <button
+                                className="login-out"
+                                onClick={handleClick}>Log out
+                            </button>
 
-        </nav>
+                        </div>
+                    ) : (
+                        <div>
+                            <Link to="/login" className="login">
+                                <button
+                                    className="login-out"
+                                    type="button">Login
+                                </button>
+                            </Link>
+                        </div>
+                    )}
+                </nav>
+            </div>
+        </header>
     );
 }
 

@@ -5,9 +5,210 @@ body {
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-image: url("../public/todobackground.png");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/*Welcome Page styles*/
+.welcome-page {
+    background-image: url("../public/todobackground.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #3e3a3a;
+    color: #fff;
+    padding: 30px;
+    text-align: center;
 }
+
+.welcome-page h1 {
+    font-size: 2.5rem;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.WP-paragraphs {
+    margin: auto;
+    width: 41%;
+    padding: 50px;
+    background-color: rgba(77, 77, 77, 0.94);
+    border-radius: 25px;
+}
+
+.welcome-page p {
+    width: 100%;
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+.welcome-page p:last-child {
+    margin-bottom: 0;
+}
+
+.welcome-page a {
+    color: #4af;
+}
+
+.welcome-page a:hover {
+    color: #8bf;
+}
+
+.welcome-page h3 {
+    color: white;
+    font-weight: bolder;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.0rem;
+    background-color: rgb(36, 36, 36);
+    color: #fdfcfc;
+}
+
+.navbar h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar nav {
+    display: flex;
+    align-items: center;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info span {
+    margin-right: 10px;
+}
+
+.login-out {
+    background-color: #333333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-out:hover {
+    background-color: #444;
+    box-shadow: 0 0 5px rgb(255, 255, 255);
+}
+
+
+/*Signin, signup form styles*/
+.userform-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2em;
+    border: 1px solid white;
+    border-radius: 10px;
+    background-color: rgba(77, 77, 77, 0.94);
+    max-width: 400px;
+    margin: 2em auto;
+}
+
+.userform-container p {
+    color: white;
+}
+
+h3 {
+    color: #fff;
+    margin-bottom: 1em;
+}
+
+.userform {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.userform label {
+    color: #fff;
+    margin-bottom: 1em;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.userform input[type="text"],
+.userform input[type="password"],
+.userform input[type="email"] {
+    padding: 0.5em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.password-input-container {
+    position: relative;
+}
+
+.password-toggle-icon {
+    position: absolute;
+    right: 0.5em; /* Choose one position for consistency */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: black;
+}
+
+#submitlogin,
+#submitcomplete {
+    margin-top: 1em;
+    padding: 0.5em 1em;
+    background-color: #042458;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#submitlogin:hover,
+#submitcomplete:hover {
+    background-color: #0056b3; /* Darker shade of blue */
+}
+
+.clickable-text {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #8bf;
+}
+
+.clickable-text:hover {
+    color: #3684ef;
+}
+
+.error {
+    --error: #e7195a;
+    border: 1px solid var(--error);
+    border-radius: 5px;
+    padding: 0.2em 0.5em;
+    background-color: rgba(248, 163, 163, 0.43);
+    text-align: center;
+}
+
+
+/*Error page styles*/
+.error-page {
+    color: white;
+    background-color: #333333;
+}
+
+.error-page i {
+    color: red;
+}
+

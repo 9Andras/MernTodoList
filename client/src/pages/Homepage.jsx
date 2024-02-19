@@ -3,28 +3,38 @@ import {useTodoContext} from "../hooks/useTodoContext";
 
 import TodoDetails from "../components/Todos/TodoDetails";
 import TodoForm from "../components/Todos/TodoForm";
+import {useAuthContext} from "../hooks/useAuthContext";
 import Loading from "../components/Loading/Loading";
 
 function Homepage() {
     const {todos, dispatch} = useTodoContext();
+    const {user} = useAuthContext();
 
 
     useEffect(() => {
         const fetchTodos = async (userId) => {
             try {
-                const response = await fetch(`/api/users/${userId}/todos`);
+                const response = await fetch(`/api/users/${userId}/todos`, {
+                    headers: {
+                        'Authorization': `Bearer ${user.token}`
+                    }
+                });
                 const data = await response.json();
+                console.log(data);
 
                 if (response.ok) {
                     dispatch({type: 'SET_TODOS', payload: data})
                 }
+
             } catch (error) {
                 console.log(error);
             }
         };
-        fetchTodos();
+        if (user) {
+            fetchTodos(user.user._id);
+        }
 
-    }, [dispatch]);
+    }, [dispatch, user]);
 
 
     return (
@@ -47,7 +57,11 @@ function Homepage() {
                         </tbody>
                     </table>
                 ) : (
-                    <Loading/>
+                    <>
+                        <h3>loading todos...</h3>
+                        <Loading/>
+                    </>
+
                 )}
             </div>
             <TodoForm/>

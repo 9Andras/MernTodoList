@@ -7,6 +7,6 @@ const todoSchema = new Schema({
     createdAt: Date,
 });
 
-const TodoList = model('Todolist', todoSchema);
+const TodoModel = model('Todo', todoSchema);
 
-module.exports = TodoList;
+module.exports = TodoModel;
