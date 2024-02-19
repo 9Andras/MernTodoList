@@ -5,7 +5,6 @@ import Loading from "../components/Loading/Loading";
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
-import "./Login.css"
 
 
 function Login() {
@@ -21,8 +20,6 @@ function Login() {
         await logIn(userName, password);
 
         resetForm();
-
-        //navigate('/users/:id/todos');
     };
 
     const resetForm = () => {
@@ -42,15 +39,15 @@ function Login() {
 
 
     return (
-        <div className="form-container" id="signin">
+        <div className="userform-container">
             {isLoading ? (
                 <Loading/>
             ) : (
                 <>
                     <h3>Log in</h3>
-                    <form className="UserSignUpForm" onSubmit={handleSignInSubmit}>
+                    <form className="userform" onSubmit={handleSignInSubmit}>
                         <label>
-                            User Name:
+                            Username:
                             <input
                                 type="text"
                                 value={userName}

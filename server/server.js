@@ -23,7 +23,7 @@ async function startServer() {
         console.log('Database connection established!');
 
         app.use('/api/users', userRoutes);
-        app.use('/api/users/:id', todoRoutes);
+        app.use('/api/users', todoRoutes);
 
         app.listen(PORT, () => {
             console.log(`Server is listening on port ${PORT}`);

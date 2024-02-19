@@ -12,9 +12,9 @@ const requireAuth = require('../middleware/requireAuth');
 router.use(requireAuth);
 
 //CRUD routes
-router.post("/todo", addTodo);
-router.get("/todos", getTodos);
-router.patch("/todo/:id", editTodo);
-router.delete("/todo/:id", deleteTodo);
+router.post("/:userId/todo", addTodo);
+router.get("/:userId/todos", getTodos);
+router.patch("/:userId/todo/:todoId", editTodo);
+router.delete("/:userId/todo/:todoId", deleteTodo);
 
 module.exports = router;

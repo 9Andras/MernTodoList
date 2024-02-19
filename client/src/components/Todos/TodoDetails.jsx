@@ -10,6 +10,7 @@ function TodoDetails({todo}) {
     const [editTitle, setEditTitle] = useState('');
     const [editComment, setEditComment] = useState('');
 
+
     const handleEditTodo = async (userId, todoId) => {
         if (!user) {
             return;
@@ -19,13 +20,16 @@ function TodoDetails({todo}) {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
                 },
                 body: JSON.stringify({title: editTitle, comment: editComment}),
             });
             const updatedTodo = await response.json();
+
             if (response.ok) {
                 dispatch({type: 'EDIT_TODO', payload: updatedTodo});
             }
+
         } catch (error) {
             console.log(error);
         }
@@ -45,8 +49,12 @@ function TodoDetails({todo}) {
             try {
                 const response = await fetch(`/api/users/${userId}/todo/${todoId}`, {
                     method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${user.token}`
+                    }
                 });
                 const jsonResponse = await response.json;
+
                 if (response.ok) {
                     dispatch({type: 'DELETE_TODO', payload: jsonResponse});
                 }
@@ -58,7 +66,7 @@ function TodoDetails({todo}) {
 
     return (
         <>
-            <tr>
+            <tr key={todo._id}>
                 {editingId === todo._id ? (
                     <>
                         <td>
@@ -75,8 +83,14 @@ function TodoDetails({todo}) {
                                 onChange={e => setEditComment(e.target.value)} required/>
                         </td>
                         <td>
-                            <button onClick={() => handleEditTodo(todo._id)}>Save</button>
-                            <button onClick={() => setEditingId(null)}>Cancel</button>
+                            <button
+                                className="material-symbols-outlined"
+                                onClick={() => handleEditTodo(user.user._id, todo._id)}>save
+                            </button>
+                            <button
+                                className="material-symbols-outlined"
+                                onClick={() => setEditingId(null)}>cancel
+                            </button>
                         </td>
                     </>
                 ) : (
@@ -84,8 +98,14 @@ function TodoDetails({todo}) {
                         <td>{todo.title}</td>
                         <td>{todo.comment}</td>
                         <td>
-                            <button onClick={() => handleDeleteTodo(todo._id)}>Remove</button>
-                            <button onClick={() => editTodo(todo)}>Edit</button>
+                            <button
+                                className="material-symbols-outlined"
+                                onClick={() => handleDeleteTodo(user.user._id, todo._id)}>delete
+                            </button>
+                            <button
+                                className="material-symbols-outlined"
+                                onClick={() => editTodo(todo)}>edit
+                            </button>
                         </td>
                     </>
                 )}

@@ -5,8 +5,8 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
 
-const createToken = (_id, userName) => {
-    return jwt.sign({_id, userName}, process.env.SECRET, {expiresIn: '3d'})
+const createToken = (_id) => {
+    return jwt.sign({_id}, process.env.SECRET, {expiresIn: '3d'})
 };
 
 
@@ -35,7 +35,7 @@ async function loginUser(req, res) {
         //don't send password
         user.password = null;
         //send response
-        return res.status(200).json({userName, token});
+        return res.status(200).json({token, user});
     } catch (error) {
         console.error(error);
         res.status(500).json({message: 'Server error.'});

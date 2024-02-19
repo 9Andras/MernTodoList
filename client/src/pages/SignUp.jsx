@@ -5,7 +5,7 @@ import Loading from "../components/Loading/Loading";
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
-import "./SignUp.css";
+
 
 function SignUp() {
     const [userName, setUserName] = useState('');
@@ -41,15 +41,15 @@ function SignUp() {
     };
 
     return (
-        <div className="form-container" id="signup">
+        <div className="userform-container" id="signup">
             {isLoading ? (
                 <Loading/>
             ) : (
                 <>
                     <h3>Create your account here!</h3>
-                    <form className="UserSignUpForm" onSubmit={handleSignUpSubmit}>
+                    <form className="userform" onSubmit={handleSignUpSubmit}>
                         <label>
-                            User Name:
+                            Username:
                             <input
                                 type="text"
                                 value={userName}

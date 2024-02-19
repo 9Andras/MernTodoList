@@ -19,12 +19,12 @@ function TodoForm() {
         }
 
         const data = {title, comment};
-
         try {
             const response = await fetch(`/api/users/${userId}/todo`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
                 },
                 body: JSON.stringify(data),
             });
@@ -52,7 +52,7 @@ function TodoForm() {
 
     return (
         <>
-            <form onSubmit={handleAddTodo}>
+            <form onSubmit={(e) => handleAddTodo(e, user.user._id)}>
                 <h3>Add a new todo to your list</h3>
                 <label>
                     Title:
@@ -76,7 +76,7 @@ function TodoForm() {
                     <div className="error">
                         {error}
                     </div>}
-                <button type="submit">Add todo</button>
+                <button type="submit">Save</button>
             </form>
         </>
     );
