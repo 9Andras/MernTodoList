@@ -1,6 +1,4 @@
-# UNDER DEVELOPMENT!
-
-# MernTodoListApp
+# MernTodoList
 
 A simple, but useful todo app developed with the MERN stack as foundation.
 
@@ -9,7 +7,11 @@ ground-up MERN project I started working on at Codecool, and something I have re
 my portfolio.
 
 Should this be your first ever time looking at a MERN stack project, follow the instructions below to get set up and
-maybe continue refining/using my work.
+maybe continue refining/using my work. 
+This project grew more before I knew it and new includes authorization for the users, protected backend and frontend routes and properly populate todos fetched from the user's data and mapped on the frontend.
+
+In the future, I would like to refine this project further, adding a User Profile section, animated done marking for the todos, filtering of the todos and more.
+
 
 ### Setup Instructions:
 
@@ -17,8 +19,9 @@ maybe continue refining/using my work.
 - run ` npm install ` to install the needed packages (these packages will be: express, nodemon, mongoose, dotenv, etc.)
 - rename the dotenvexample.txt files to `.env ` and adjust the connection link to match yours, also make your `SECRET`
   for token generation
-- run the command `node populate.js` while in the populate directory (this will populate the DB with some users and
-  their random todos using the 2 json file in the populate directory)
+- navigate to the populate directory (cmd: `cd.\server\populate\` run the command `node populate.js` while still in the directory (this will populate the DB with some users and
+  their random todos using the 2 json files in the populate directory)
+
 
 #### Running the server:
 
@@ -34,4 +37,4 @@ maybe continue refining/using my work.
   <b><u>Note:</u></b> this command will most likely open your default browser and automatically
   open `http://localhost:3000/` in the browser. Should you close the browser this is the address you can return to.
 
-- 
+- to start using the app and site, follow the instructions on the welcome page
