@@ -13,13 +13,15 @@ function WelcomePage() {
                 <p>
                     MongoDB is a powerful NoSQL database that allows for flexible and scalable data storage.
                     Its document-oriented structure makes it perfect for managing todo items and user profiles.
-                    You can learn more about MongoDB <a href="https://www.mongodb.com/" target="_blank" rel="noreferrer">here</a>.
+                    You can learn more about MongoDB <a href="https://www.mongodb.com/" target="_blank"
+                                                        rel="noreferrer">here</a>.
                 </p>
                 <p>
                     Express.js is a minimalist web framework for Node.js that simplifies the process of building web
                     applications and APIs.
                     It provides robust features for handling HTTP requests and middleware integration.
-                    Explore more about Express.js <a href="https://expressjs.com/" target="_blank" rel="noreferrer">here</a>.
+                    Explore more about Express.js <a href="https://expressjs.com/" target="_blank"
+                                                     rel="noreferrer">here</a>.
                 </p>
                 <p>
                     React.js is a JavaScript library for building user interfaces, developed by Facebook.
@@ -43,7 +45,8 @@ function WelcomePage() {
                 </p>
                 <p>
                     If you would like to connect with me or inquire about my app, feel free to check out my LinkedIn and
-                    GitHub profiles: <a href="https://www.linkedin.com/in/andrás-fuksz" target="_blank" rel="noreferrer">LinkedIn</a> | <a
+                    GitHub profiles: <a href="https://www.linkedin.com/in/andrás-fuksz" target="_blank"
+                                        rel="noreferrer">LinkedIn</a> | <a
                     href="https://github.com/9Andras" target="_blank" rel="noreferrer">GitHub</a>
                 </p>
                 <p>

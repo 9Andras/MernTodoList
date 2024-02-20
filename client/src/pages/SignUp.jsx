@@ -47,7 +47,7 @@ function SignUp() {
             ) : (
                 <>
                     <h3>Create your account here!</h3>
-                    <form className="userform" onSubmit={handleSignUpSubmit}>
+                    <form className="userform" onSubmit={(e)=> handleSignUpSubmit(e)}>
                         <label>
                             Username:
                             <input
@@ -90,7 +90,8 @@ function SignUp() {
                         <button
                             id="submitcomplete"
                             disabled={isLoading}
-                            type="submit">Complete sign up
+                            type="submit">
+                            Complete sign up
                         </button>
                     </form>
                     <span

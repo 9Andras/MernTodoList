@@ -51,34 +51,34 @@ function TodoForm() {
     }
 
     return (
-        <>
-            <form onSubmit={(e) => handleAddTodo(e, user.user._id)}>
-                <h3>Add a new todo to your list</h3>
-                <label>
-                    Title:
-                    <input
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                    />
-                </label>
-                <label>
-                    Comment:
-                    <input
-                        type="text"
-                        value={comment}
-                        onChange={(e) => setComment(e.target.value)}
-                        required
-                    />
-                </label>
-                {error &&
-                    <div className="error">
-                        {error}
-                    </div>}
-                <button type="submit">Save</button>
-            </form>
-        </>
+        <form
+            className="todo-form"
+            onSubmit={(e) => handleAddTodo(e, user.user._id)}>
+            <h3>Add a new todo to your list</h3>
+            <label>
+                Title:
+                <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                />
+            </label>
+            <label>
+                Comment:
+                <input
+                    type="text"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    required
+                />
+            </label>
+            {error &&
+                <div className="error">
+                    {error}
+                </div>}
+            <button type="submit">Save</button>
+        </form>
     );
 
 }

@@ -45,7 +45,7 @@ function Login() {
             ) : (
                 <>
                     <h3>Log in</h3>
-                    <form className="userform" onSubmit={handleSignInSubmit}>
+                    <form className="userform" onSubmit={(e) => handleSignInSubmit(e)}>
                         <label>
                             Username:
                             <input

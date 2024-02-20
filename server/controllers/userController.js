@@ -76,13 +76,13 @@ async function signupUser(req, res) {
             password,
             createdAt,
         });
-        const savedUser = await userToSave.save();
+        const user = await userToSave.save();
         //create token
-        const token = createToken(savedUser._id)
+        const token = createToken(user._id)
         //don't send password to frontend
-        savedUser.password = null;
+        user.password = null;
         //returning response
-        return res.status(200).json({savedUser, token});
+        return res.status(200).json({user, token});
     } catch (error) {
         console.error(error);
         if (error instanceof mongoose.Error.ValidationError) {

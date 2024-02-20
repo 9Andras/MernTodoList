@@ -10,6 +10,10 @@ body {
     background-size: cover;
 }
 
+:root {
+    --primary: #050505;
+}
+
 /*Welcome Page styles*/
 .welcome-page {
     background-image: url("../public/todobackground.png");
@@ -133,7 +137,8 @@ h3 {
     width: 100%;
 }
 
-.userform label {
+.userform label,
+.todo-form label {
     color: #fff;
     margin-bottom: 1em;
     font-size: 1rem;
@@ -210,5 +215,82 @@ h3 {
 
 .error-page i {
     color: red;
+}
+
+.home {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 100px;
+}
+
+.home h2 {
+    color: white;
+}
+
+.todo-details {
+    background: #fff;
+    border-radius: 4px;
+    margin: 20px auto;
+    padding: 20px;
+    position: relative;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.todo-details h4 {
+    margin: 0 0 10px 0;
+    font-size: 1.2em;
+    color: var(--primary);
+}
+
+.todo-details p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.todo-details span {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    background: #f1f1f1;
+    padding: 6px;
+    border-radius: 50%;
+    color: #333;
+}
+
+.todo-details #todo-details__edit {
+    top: 20px;
+    right: 65px;
+}
+
+.todo-details #todo-details__delete {
+    top: 20px;
+    right: 20px;
+}
+
+.todo-form input[type="text"] {
+    padding: 0.5em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.todo-form button {
+    margin-top: 1em;
+    padding: 0.5em 1em;
+    background-color: rgb(54, 132, 239);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.todo-form button:hover {
+    background-color: #0056b3;
 }
 

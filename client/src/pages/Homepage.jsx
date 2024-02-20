@@ -41,28 +41,15 @@ function Homepage() {
         <div className="home">
             <div className="todos">
                 <h2>My Todos</h2>
-                {todos ? (
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Comment</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {todos.map((todo) => (
-                            <TodoDetails key={todo._id} todo={todo}/>
-                        ))}
-                        </tbody>
-                    </table>
-                ) : (
-                    <>
-                        <h3>loading todos...</h3>
-                        <Loading/>
-                    </>
-
-                )}
+                {todos ?
+                    todos.map((todo) => (
+                        <TodoDetails key={todo._id} todo={todo}/>
+                    )) : (
+                        <>
+                            <h3>loading todos...</h3>
+                            <Loading/>
+                        </>
+                    )}
             </div>
             <TodoForm/>
         </div>
