@@ -8,7 +8,8 @@ my portfolio.
 
 Should this be your first ever time looking at a MERN stack project, follow the instructions below to get set up and
 maybe continue refining/using my work. 
-This project grew more before I knew it and new includes authorization for the users, protected backend and frontend routes and properly populate todos fetched from the user's data and mapped on the frontend.
+
+This project grew more before I knew it and new includes authorization for the users, protected backend and frontend routes and properly populated todos fetched from the user's data and mapped on the frontend.
 
 In the future, I would like to refine this project further, adding a User Profile section, animated done marking for the todos, filtering of the todos and more.
 
