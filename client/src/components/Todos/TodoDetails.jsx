@@ -68,11 +68,16 @@ function TodoDetails({todo}) {
         <div className="todo-details">
             {editingId === todo._id ? (
                 <>
+                    <label>Title:</label>
+                    <br/>
                     <input
                         type="text"
                         value={editTitle}
                         onChange={e => setEditTitle(e.target.value)}
                         required/>
+                    <br/>
+                    <label>Comment:</label>
+                    <br/>
                     <input
                         type="text"
                         value={editComment}
@@ -80,10 +85,14 @@ function TodoDetails({todo}) {
                         required/>
                     <span
                         className="material-symbols-outlined"
+                        id="todo-details__save"
+                        title="save"
                         onClick={() => handleEditTodo(user.user._id, todo._id)}>save
                     </span>
                     <span
                         className="material-symbols-outlined"
+                        id="todo-details__cancel"
+                        title="cancel"
                         onClick={() => setEditingId(null)}>cancel
                     </span>
                 </>
@@ -91,14 +100,17 @@ function TodoDetails({todo}) {
                 <>
                     <h4>{todo.title}</h4>
                     <p>{todo.comment}</p>
+                    <p>{todo.createdAt}</p>
                     <span
                         className="material-symbols-outlined"
                         id="todo-details__delete"
+                        title="delete"
                         onClick={() => handleDeleteTodo(user.user._id, todo._id)}>delete
                     </span>
                     <span
                         className="material-symbols-outlined"
                         id="todo-details__edit"
+                        title="edit"
                         onClick={() => editTodo(todo)}>edit
                     </span>
                 </>
