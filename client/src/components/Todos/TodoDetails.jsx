@@ -100,7 +100,7 @@ function TodoDetails({todo}) {
                 <>
                     <h4>{todo.title}</h4>
                     <p>{todo.comment}</p>
-                    <p>{todo.createdAt}</p>
+                    <p>{new Date(todo.createdAt).toDateString()}</p>
                     <span
                         className="material-symbols-outlined"
                         id="todo-details__delete"

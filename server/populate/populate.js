@@ -40,9 +40,24 @@ const populateUsers = async (createdTodos) => {
 };
 
 
-const populateTodos = async () => {
+/*const populateTodos = async () => {
     await TodoList.deleteMany({});
     const createdTodos = await TodoList.create(...todos);
+    console.log("Todos created!");
+
+    await populateUsers(createdTodos);
+};*/
+
+const populateTodos = async () => {
+    await TodoList.deleteMany({});
+
+    const currentDate = new Date();
+    const fullTodos = todos.map(todo => ({
+        ...todo,
+        createdAt: currentDate
+    }));
+
+    const createdTodos = await TodoList.create(fullTodos);
     console.log("Todos created!");
 
     await populateUsers(createdTodos);

@@ -22,7 +22,8 @@ function WelcomePage() {
                     web
                     applications and APIs.
                     It provides robust features for handling HTTP requests and middleware integration.
-                    Explore more about Express.js <a href="https://expressjs.com/" target="_blank" rel="noreferrer">here</a>.
+                    Explore more about Express.js <a href="https://expressjs.com/" target="_blank"
+                                                     rel="noreferrer">here</a>.
                 </p>
                 <p>
                     <b>React.js</b> is a JavaScript library for building user interfaces, developed by Facebook.
