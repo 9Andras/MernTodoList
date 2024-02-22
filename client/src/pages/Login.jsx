@@ -18,15 +18,6 @@ function Login() {
         e.preventDefault();
 
         await logIn(userName, password);
-
-        resetForm();
-    };
-
-    const resetForm = () => {
-        if (!error) {
-            setUserName('');
-            setPassword('');
-        }
     };
 
     const handleTogglePasswordVisibility = () => {

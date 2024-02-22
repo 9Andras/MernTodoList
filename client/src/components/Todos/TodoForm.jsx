@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import {useTodoContext} from "../../hooks/useTodoContext";
 import {useAuthContext} from "../../hooks/useAuthContext";
 
+import Loading from "../Loading/Loading";
+
 function TodoForm() {
     const {dispatch} = useTodoContext();
     const {user} = useAuthContext();
@@ -9,9 +11,12 @@ function TodoForm() {
     const [title, setTitle] = useState('');
     const [comment, setComment] = useState('');
     const [error, setError] = useState(null)
+    const [isLoading, setIsLoading] = useState(null);
 
     const handleAddTodo = async (e, userId) => {
         e.preventDefault();
+        setIsLoading(true);
+        setError(null);
 
         if (!user) {
             setError('You must be logged in')
@@ -32,12 +37,14 @@ function TodoForm() {
 
             if (!response.ok) {
                 setError(responseData.error)
+                setIsLoading(false);
             }
 
             if (response.ok) {
                 console.log(responseData);
                 resetForm();
                 dispatch({type: 'CREATE_TODO', payload: responseData});
+                setIsLoading(false);
             }
         } catch (error) {
             console.error('Failed to submit data: ', error);
@@ -51,34 +58,47 @@ function TodoForm() {
     }
 
     return (
-        <form
-            className="todo-form"
-            onSubmit={(e) => handleAddTodo(e, user.user._id)}>
-            <h3>Add a new todo to your list</h3>
-            <label>
-                Title:
-                <input
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    required
-                />
-            </label>
-            <label>
-                Comment:
-                <input
-                    type="text"
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                    required
-                />
-            </label>
-            {error &&
-                <div className="error">
-                    {error}
-                </div>}
-            <button type="submit">Save</button>
-        </form>
+        <>
+            {isLoading ? (
+                <Loading/>
+            ) : (
+                <form
+                    className="todo-form"
+                    onSubmit={(e) => handleAddTodo(e, user.user._id)}>
+                    <h3>Add a new todo to your list</h3>
+                    <label>
+                        Title:
+                        <input
+                            type="text"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            required
+                        />
+                    </label>
+                    <label>
+                        Comment:
+                        <input
+                            type="text"
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                            required
+                        />
+                    </label>
+                    {error &&
+                        <div className="error">
+                            {error}
+                        </div>}
+                    <button
+                        type="submit"
+                        disabled={isLoading}>
+                        Save
+                    </button>
+                </form>
+            )
+            }
+        </>
+
+
     );
 
 }

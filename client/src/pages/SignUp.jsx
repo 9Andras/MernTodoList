@@ -21,16 +21,16 @@ function SignUp() {
 
         await signUp(userName, email, password);
 
-        resetForm();
+
     };
 
-    const resetForm = () => {
+    /*const resetForm = () => {
         if (!error) {
             setUserName('');
             setEmail('');
             setPassword('');
         }
-    };
+    };*/
 
     const handleTogglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -41,7 +41,7 @@ function SignUp() {
     };
 
     return (
-        <div className="userform-container" id="signup">
+        <div className="userform-container">
             {isLoading ? (
                 <Loading/>
             ) : (
