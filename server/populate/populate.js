@@ -52,12 +52,13 @@ const populateTodos = async () => {
     await TodoList.deleteMany({});
 
     const currentDate = new Date();
-    const fullTodos = todos.map(todo => ({
+    const todosToCreate = todos.map(todo => ({
         ...todo,
-        createdAt: currentDate
+        createdAt: currentDate,
+        updatedAt: null
     }));
 
-    const createdTodos = await TodoList.create(fullTodos);
+    const createdTodos = await TodoList.create(todosToCreate);
     console.log("Todos created!");
 
     await populateUsers(createdTodos);

@@ -54,7 +54,6 @@ function TodoDetails({todo}) {
                         'Authorization': `Bearer ${user.token}`
                     }
                 });
-
                 if (response.ok) {
                     dispatch({type: 'DELETE_TODO', payload: {_id: todoId}});
                 }
@@ -100,7 +99,9 @@ function TodoDetails({todo}) {
                 <>
                     <h4>{todo.title}</h4>
                     <p>{todo.comment}</p>
-                    <p>{new Date(todo.createdAt).toDateString()}</p>
+                    <br/>
+                    <p><u>Added </u>: {new Date(todo.createdAt).toLocaleString()}</p>
+                    <p><u>Edited </u>: {todo.updatedAt === null ? 'not yet' : new Date(todo.updatedAt).toLocaleString()}</p>
                     <span
                         className="material-symbols-outlined"
                         id="todo-details__delete"

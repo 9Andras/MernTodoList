@@ -5,6 +5,11 @@ const todoSchema = new Schema({
     title: String,
     comment: String,
     createdAt: Date,
+    updatedAt: Date,
+    done: {
+        type: Boolean,
+        default: false
+    }
 });
 
 const TodoModel = model('Todo', todoSchema);

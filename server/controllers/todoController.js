@@ -8,13 +8,19 @@ async function addTodo(req, res) {
     const {userId} = req.params;
     const {title, comment} = req.body;
     const createdAt = Date.now();
+    const updatedAt = null;
 
     try {
         const user = await UserModel.findById(userId);
         if (!user) {
             return res.status(404).json({success: false, error: "User not found!"});
         }
-        const todoItem = new TodoModel({title, comment, createdAt});
+        const todoItem = new TodoModel({
+            title,
+            comment,
+            createdAt,
+            updatedAt
+        });
         user.todos.push(todoItem);
         await Promise.all([todoItem.save(), user.save()]);
 
@@ -62,7 +68,8 @@ async function editTodo(req, res) {
             {
                 $set: {
                     title: title !== undefined ? title : undefined,
-                    comment: comment !== undefined ? comment : undefined
+                    comment: comment !== undefined ? comment : undefined,
+                    updatedAt: Date.now()
                 },
             },
             {new: true}
