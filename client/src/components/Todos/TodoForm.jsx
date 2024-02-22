@@ -94,11 +94,8 @@ function TodoForm() {
                         Save
                     </button>
                 </form>
-            )
-            }
+            )}
         </>
-
-
     );
 
 }

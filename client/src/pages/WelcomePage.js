@@ -53,7 +53,7 @@ function WelcomePage() {
                     href="https://github.com/9Andras" target="_blank" rel="noreferrer">GitHub</a>
                 </p>
                 <p>
-                    You can get started right away by logging in <a href="/login">HERE</a> with a couple of default user
+                    You can get started right away by logging in <a href="/client/src/pages/Login">HERE</a> with a couple of default user
                     profiles, the data of which can be found in the users.json file located in the server directory.
                     Alternatively, you can create your own user profile <a href="/register">HERE</a>.
                 </p>

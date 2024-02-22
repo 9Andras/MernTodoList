@@ -47,7 +47,7 @@ function SignUp() {
             ) : (
                 <>
                     <h3>Create your account here!</h3>
-                    <form className="userform" onSubmit={(e)=> handleSignUpSubmit(e)}>
+                    <form className="userform" onSubmit={(e) => handleSignUpSubmit(e)}>
                         <label>
                             Username:
                             <input
