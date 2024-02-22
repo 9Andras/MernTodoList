@@ -262,6 +262,7 @@ h3 {
     margin: 0;
     font-size: 0.9em;
     color: #555;
+    text-decoration: none;
 }
 
 .todo-details span {
@@ -306,6 +307,11 @@ h3 {
     background-color: white;
 }
 
+#todo-details__checkbox {
+    top: 20px;
+    right: 110px;
+}
+
 .todo-details input[type="text"] {
     padding: 0.6em;
     border-radius: 5px;
@@ -318,6 +324,10 @@ h3 {
 
 .todo-details label {
     font-weight: bold;
+}
+
+.todo-item.done {
+    text-decoration: line-through; /* Apply line-through style when marked as done */
 }
 
 

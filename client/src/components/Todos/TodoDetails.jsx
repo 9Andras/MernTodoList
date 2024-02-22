@@ -9,6 +9,7 @@ function TodoDetails({todo}) {
     const [editingId, setEditingId] = useState(null);
     const [editTitle, setEditTitle] = useState('');
     const [editComment, setEditComment] = useState('');
+    const [isDone, setIsDone] = useState(false);
 
 
     const handleEditTodo = async (userId, todoId) => {
@@ -63,6 +64,24 @@ function TodoDetails({todo}) {
         }
     };
 
+    const toggleDone = async (userId, todoId) => {
+        try{
+            const response = await fetch(`/api/users/${userId}/todo/${todoId}/done`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                },
+                body: JSON.stringify({done: !isDone})
+            });
+            if(!response.ok){
+                throw new Error('toggle failed')
+            }
+            setIsDone(!isDone);
+        } catch (error){
+            console.error(error);
+        }
+    };
+
     return (
         <div className="todo-details">
             {editingId === todo._id ? (
@@ -96,12 +115,13 @@ function TodoDetails({todo}) {
                     </span>
                 </>
             ) : (
-                <>
+                <div className={`todo-item ${isDone ? 'done' : ''}`}>
                     <h4>{todo.title}</h4>
                     <p>{todo.comment}</p>
                     <br/>
                     <p><u>Added </u>: {new Date(todo.createdAt).toLocaleString()}</p>
-                    <p><u>Edited </u>: {todo.updatedAt === null ? 'not yet' : new Date(todo.updatedAt).toLocaleString()}</p>
+                    <p><u>Edited </u>: {todo.updatedAt === null ? 'not yet' : new Date(todo.updatedAt).toLocaleString()}
+                    </p>
                     <span
                         className="material-symbols-outlined"
                         id="todo-details__delete"
@@ -114,7 +134,13 @@ function TodoDetails({todo}) {
                         title="edit"
                         onClick={() => editTodo(todo)}>edit
                     </span>
-                </>
+                    <span
+                        className="material-symbols-outlined"
+                        id="todo-details__checkbox"
+                        title={isDone ? "mark undone" : "mark done"}
+                        onClick={toggleDone}>{isDone ? 'check_box' : 'check_box_outline_blank'}
+                    </span>
+                </div>
             )}
         </div>
     );
