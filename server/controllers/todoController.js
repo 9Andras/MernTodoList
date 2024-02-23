@@ -114,7 +114,7 @@ async function markTodoDone(req, res) {
     try {
         const user = await UserModel.findById(userId);
         if (!user) {
-            return res.status(404).json({succes: false, message: "User not found"});
+            return res.status(404).json({success: false, message: "User not found"});
         }
         const todoToUpdate = await TodoModel.findOneAndUpdate(
             {_id: todoId},

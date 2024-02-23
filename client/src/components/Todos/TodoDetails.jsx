@@ -87,8 +87,7 @@ function TodoDetails({todo}) {
             } catch (error) {
                 console.error(error)
             }
-        }
-    ;
+        };
 
     return (
         <div className="todo-details">
