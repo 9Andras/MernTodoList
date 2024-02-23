@@ -4,7 +4,8 @@ const {
     addTodo,
     getTodos,
     editTodo,
-    deleteTodo
+    deleteTodo,
+    markTodoDone
 } = require("../controllers/todoController");
 const requireAuth = require('../middleware/requireAuth');
 
@@ -14,6 +15,7 @@ router.use(requireAuth);
 //CRUD routes
 router.post("/:userId/todo", addTodo);
 router.get("/:userId/todos", getTodos);
+router.patch("/:userId/todo/:todoId/done", markTodoDone)
 router.patch("/:userId/todo/:todoId", editTodo);
 router.delete("/:userId/todo/:todoId", deleteTodo);
 

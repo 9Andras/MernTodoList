@@ -9,7 +9,6 @@ function TodoDetails({todo}) {
     const [editingId, setEditingId] = useState(null);
     const [editTitle, setEditTitle] = useState('');
     const [editComment, setEditComment] = useState('');
-    const [isDone, setIsDone] = useState(false);
 
 
     const handleEditTodo = async (userId, todoId) => {
@@ -55,9 +54,13 @@ function TodoDetails({todo}) {
                         'Authorization': `Bearer ${user.token}`
                     }
                 });
+
                 if (response.ok) {
                     dispatch({type: 'DELETE_TODO', payload: {_id: todoId}});
+                } else {
+                    console.error(response.error)
                 }
+
             } catch (error) {
                 console.log(error);
             }
@@ -65,22 +68,27 @@ function TodoDetails({todo}) {
     };
 
     const toggleDone = async (userId, todoId) => {
-        try{
-            const response = await fetch(`/api/users/${userId}/todo/${todoId}/done`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${user.token}`
-                },
-                body: JSON.stringify({done: !isDone})
-            });
-            if(!response.ok){
-                throw new Error('toggle failed')
+            try {
+                const response = await fetch(`/api/users/${userId}/todo/${todoId}/done`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Authorization': `Bearer ${user.token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({done: !todo.done})
+                });
+
+                if (response.ok) {
+                    dispatch({type: 'MARK_TODO_DONE', payload: {_id: todoId}});
+                } else {
+                    console.error(response.error);
+                }
+
+            } catch (error) {
+                console.error(error)
             }
-            setIsDone(!isDone);
-        } catch (error){
-            console.error(error);
         }
-    };
+    ;
 
     return (
         <div className="todo-details">
@@ -115,12 +123,13 @@ function TodoDetails({todo}) {
                     </span>
                 </>
             ) : (
-                <div className={`todo-item ${isDone ? 'done' : ''}`}>
+                <div className={`todo-item ${todo.done ? 'done' : ''}`}>
                     <h4>{todo.title}</h4>
                     <p>{todo.comment}</p>
                     <br/>
                     <p><u>Added </u>: {new Date(todo.createdAt).toLocaleString()}</p>
-                    <p><u>Edited </u>: {todo.updatedAt === null ? 'not yet' : new Date(todo.updatedAt).toLocaleString()}
+                    <p>
+                        <u>Edited </u>: {todo.updatedAt === null ? 'not yet' : new Date(todo.updatedAt).toLocaleString()}
                     </p>
                     <span
                         className="material-symbols-outlined"
@@ -137,8 +146,9 @@ function TodoDetails({todo}) {
                     <span
                         className="material-symbols-outlined"
                         id="todo-details__checkbox"
-                        title={isDone ? "mark undone" : "mark done"}
-                        onClick={toggleDone}>{isDone ? 'check_box' : 'check_box_outline_blank'}
+                        title={todo.done ? "mark undone" : "mark done"}
+                        onClick={() => toggleDone(user.user._id, todo._id)}>
+                        {todo.done ? 'check_box' : 'check_box_outline_blank'}
                     </span>
                 </div>
             )}

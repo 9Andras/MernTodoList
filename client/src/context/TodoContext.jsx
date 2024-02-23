@@ -22,6 +22,11 @@ export const todosReducer = (state, action) => {
             return {
                 todos: state.todos.filter((todo) => todo._id !== action.payload._id)
             }
+        case 'MARK_TODO_DONE':
+            return {
+                todos: state.todos.map((todo) =>
+                    todo._id === action.payload._id ? {...todo, done: !todo.done} : todo)
+            }
         default:
             return state;
     }

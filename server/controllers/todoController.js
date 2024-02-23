@@ -107,9 +107,35 @@ async function deleteTodo(req, res) {
     }
 }
 
+async function markTodoDone(req, res) {
+    const {userId, todoId} = req.params;
+    const {done} = req.body;
+
+    try {
+        const user = await UserModel.findById(userId);
+        if (!user) {
+            return res.status(404).json({succes: false, message: "User not found"});
+        }
+        const todoToUpdate = await TodoModel.findOneAndUpdate(
+            {_id: todoId},
+            {
+                $set: {
+                    done: done
+                }
+            },
+            {new: true}
+        );
+        return res.status(200).json({success: true, todo: todoToUpdate});
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({success: false, error: 'Failed to mark todo as done'});
+    }
+}
+
 module.exports = {
     addTodo,
     getTodos,
     editTodo,
     deleteTodo,
+    markTodoDone,
 };
