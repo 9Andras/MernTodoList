@@ -127,9 +127,7 @@ function TodoDetails({todo}) {
                     <p>{todo.comment}</p>
                     <br/>
                     <p><u>Added </u>: {new Date(todo.createdAt).toLocaleString()}</p>
-                    <p>
-                        <u>Edited </u>: {todo.updatedAt === null ? 'not yet' : new Date(todo.updatedAt).toLocaleString()}
-                    </p>
+                    <p><u>Edited </u>: {todo.updatedAt === null ? 'not yet' : new Date(todo.updatedAt).toLocaleString()}</p>
                     <span
                         className="material-symbols-outlined"
                         id="todo-details__delete"
