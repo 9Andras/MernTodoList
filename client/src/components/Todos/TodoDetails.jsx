@@ -9,6 +9,7 @@ function TodoDetails({todo}) {
     const [editingId, setEditingId] = useState(null);
     const [editTitle, setEditTitle] = useState('');
     const [editComment, setEditComment] = useState('');
+    const [editDeadline, setEditDeadline] = useState('');
 
 
     const handleEditTodo = async (userId, todoId) => {
@@ -22,7 +23,7 @@ function TodoDetails({todo}) {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${user.token}`
                 },
-                body: JSON.stringify({title: editTitle, comment: editComment}),
+                body: JSON.stringify({title: editTitle, comment: editComment, deadline: editDeadline}),
             });
             const updatedTodo = await response.json();
 
@@ -68,26 +69,37 @@ function TodoDetails({todo}) {
     };
 
     const toggleDone = async (userId, todoId) => {
-            try {
-                const response = await fetch(`/api/users/${userId}/todo/${todoId}/done`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Authorization': `Bearer ${user.token}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({done: !todo.done})
-                });
+        try {
+            const response = await fetch(`/api/users/${userId}/todo/${todoId}/done`, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${user.token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({done: !todo.done})
+            });
 
-                if (response.ok) {
-                    dispatch({type: 'MARK_TODO_DONE', payload: {_id: todoId}});
-                } else {
-                    console.error(response.error);
-                }
-
-            } catch (error) {
-                console.error(error)
+            if (response.ok) {
+                dispatch({type: 'MARK_TODO_DONE', payload: {_id: todoId}});
+            } else {
+                console.error(response.error);
             }
-        };
+
+        } catch (error) {
+            console.error(error)
+        }
+    };
+
+    const checkTodoDeadline = () => {
+        if (todo.deadline < Date.now() && todo.deadline !== null && !todo.done) {
+            return (
+                <>
+                    <p style={{color: "red"}}><b>DEADLINE PASSED!</b></p>
+                    <p><u>was originally:</u></p>
+                </>
+            );
+        }
+    };
 
     return (
         <div className="todo-details">
@@ -108,6 +120,14 @@ function TodoDetails({todo}) {
                         value={editComment}
                         onChange={e => setEditComment(e.target.value)}
                         required/>
+                    <br/>
+                    <label>Deadline:</label>
+                    <br/>
+                    <input
+                        type="datetime-local"
+                        value={editDeadline}
+                        onChange={e => setEditDeadline(e.target.value)}
+                    />
                     <span
                         className="material-symbols-outlined"
                         id="todo-details__save"
@@ -126,8 +146,13 @@ function TodoDetails({todo}) {
                     <h4>{todo.title}</h4>
                     <p>{todo.comment}</p>
                     <br/>
-                    <p><u>Added </u>: {new Date(todo.createdAt).toLocaleString()}</p>
-                    <p><u>Edited </u>: {todo.updatedAt === null ? 'not yet' : new Date(todo.updatedAt).toLocaleString()}</p>
+                    <p><strong><u>Due</u>:
+                    </strong>{checkTodoDeadline()} {todo.deadline === null ? 'not yet specified' : new Date(todo.deadline).toLocaleString()}
+                    </p>
+                    <br/>
+                    <p><u>Added</u>: {new Date(todo.createdAt).toLocaleString()}</p>
+                    <p><u>Edited</u>: {todo.updatedAt === null ? 'not yet' : new Date(todo.updatedAt).toLocaleString()}
+                    </p>
                     <span
                         className="material-symbols-outlined"
                         id="todo-details__delete"

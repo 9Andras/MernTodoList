@@ -312,7 +312,8 @@ h3 {
     right: 110px;
 }
 
-.todo-details input[type="text"] {
+.todo-details input[type="text"],
+.todo-details input[type="datetime-local"]{
     padding: 0.6em;
     border-radius: 5px;
     border: 1px solid #050505;

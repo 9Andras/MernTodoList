@@ -4,6 +4,7 @@ const {Schema, model} = mongoose;
 const todoSchema = new Schema({
     title: String,
     comment: String,
+    deadline: Date,
     createdAt: Date,
     updatedAt: Date,
     done: {

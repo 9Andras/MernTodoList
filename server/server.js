@@ -5,7 +5,7 @@ const userRoutes = require('./routes/userRoutes');
 const todoRoutes = require('./routes/todoRoutes');
 
 
-const {MONGO_URL, PORT } = process.env;
+const {MONGO_URL, PORT} = process.env;
 
 if (!MONGO_URL) {
     console.error("Missing MONGO_URL environment variable");

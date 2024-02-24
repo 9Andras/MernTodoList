@@ -51,7 +51,7 @@ async function getTodos(req, res) {
 //update
 async function editTodo(req, res) {
     const {userId, todoId} = req.params;
-    const {title, comment} = req.body;
+    const {title, comment, deadline} = req.body;
 
     try {
         const user = await UserModel.findById(userId);
@@ -69,6 +69,7 @@ async function editTodo(req, res) {
                 $set: {
                     title: title !== undefined ? title : undefined,
                     comment: comment !== undefined ? comment : undefined,
+                    deadline: deadline !== undefined ? deadline : undefined,
                     updatedAt: Date.now()
                 },
             },

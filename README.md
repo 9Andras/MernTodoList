@@ -17,9 +17,14 @@ todos, filtering of the todos and more.
 
 ### Setup Instructions:
 
-- create a mongoDB cluster or database for yourself (follow this page: https://www.mongodb.com/basics/create-database)
-- run ` npm install ` to install the needed packages (these packages will be: express, nodemon, mongoose, dotenv, etc.)
-- rename the dotenvexample.txt files to `.env ` and adjust the connection link to match yours, also make your `SECRET`
+- create a mongoDB cluster for yourself (follow this page: https://www.mongodb.com/basics/create-database)
+- download mongoDB compass, and paste in your connection link
+- no need to create a database just yet, on population the database name you have specified in the `.env` file will
+  automatically generate a DB with that name. See further instructions below
+- run ` npm install ` to install the needed packages (these packages will be: express, nodemon, mongoose, dotenv, etc.,
+  this may not be needed, but better safe than sorry)
+- rename the `dotenvexample.txt` file to literally just `.env ` (no need for any filename) and adjust the connection link
+  to match yours, also make your `SECRET`, preferably with a password generator like LastPass
   for token generation
 - navigate to the populate directory (cmd: `cd.\server\populate\` run the command `node populate.js` while still in the
   directory (this will populate the DB with some users and
