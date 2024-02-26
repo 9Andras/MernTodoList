@@ -6,7 +6,7 @@ const UserModel = require("../model/user.model");
 //create
 async function addTodo(req, res) {
     const {userId} = req.params;
-    const {title, comment} = req.body;
+    const {title, comment, deadline} = req.body;
     const createdAt = Date.now();
     const updatedAt = null;
 
@@ -18,16 +18,19 @@ async function addTodo(req, res) {
         const todoItem = new TodoModel({
             title,
             comment,
+            deadline,
             createdAt,
             updatedAt
         });
+
         user.todos.push(todoItem);
+
         await Promise.all([todoItem.save(), user.save()]);
 
-        res.json(todoItem);
+        return res.status(200).json(todoItem);
     } catch (error) {
         console.error(error);
-        res.status(400).json({success: false});
+        return res.status(400).json({success: false, error: 'failed adding todo'});
     }
 }
 
@@ -114,9 +117,11 @@ async function markTodoDone(req, res) {
 
     try {
         const user = await UserModel.findById(userId);
+
         if (!user) {
-            return res.status(404).json({success: false, message: "User not found"});
+            return res.status(404).json({success: false, error: "User not found"});
         }
+
         const todoToUpdate = await TodoModel.findOneAndUpdate(
             {_id: todoId},
             {
@@ -126,6 +131,7 @@ async function markTodoDone(req, res) {
             },
             {new: true}
         );
+
         return res.status(200).json({success: true, todo: todoToUpdate});
     } catch (error) {
         console.error(error);

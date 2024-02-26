@@ -236,6 +236,10 @@ h3 {
     text-align: center;
     text-decoration: underline;
 }
+.todos h3{
+    color: white;
+    text-align: center;
+}
 
 /*Todo details styles*/
 .todo-details {
@@ -313,7 +317,7 @@ h3 {
 }
 
 .todo-details input[type="text"],
-.todo-details input[type="datetime-local"]{
+.todo-details input[type="datetime-local"] {
     padding: 0.6em;
     border-radius: 5px;
     border: 1px solid #050505;
@@ -348,7 +352,8 @@ h3 {
     font-weight: bold;
 }
 
-.todo-form input[type="text"] {
+.todo-form input[type="text"],
+.todo-form input[type="datetime-local"] {
     padding: 0.5em;
     border-radius: 5px;
     border: 1px solid #ccc;

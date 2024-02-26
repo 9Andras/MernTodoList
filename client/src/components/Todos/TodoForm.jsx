@@ -10,20 +10,28 @@ function TodoForm() {
 
     const [title, setTitle] = useState('');
     const [comment, setComment] = useState('');
-    const [error, setError] = useState(null)
+    const [deadline, setDeadline] = useState('');
+
+    const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
 
     const handleAddTodo = async (e, userId) => {
         e.preventDefault();
-        setIsLoading(true);
         setError(null);
+        setIsLoading(true);
 
         if (!user) {
             setError('You must be logged in')
             return;
         }
 
-        const data = {title, comment};
+        if (new Date(deadline).getTime() < Date.now()) {
+            setIsLoading(false);
+            setError("Deadline cannot be set in the past!")
+            return;
+        }
+
+        const data = {title, comment, deadline};
         try {
             const response = await fetch(`/api/users/${userId}/todo`, {
                 method: 'POST',
@@ -36,16 +44,16 @@ function TodoForm() {
             const responseData = await response.json();
 
             if (!response.ok) {
-                setError(responseData.error)
                 setIsLoading(false);
+                setError(responseData.error)
             }
 
             if (response.ok) {
-                console.log(responseData);
                 resetForm();
                 dispatch({type: 'CREATE_TODO', payload: responseData});
                 setIsLoading(false);
             }
+
         } catch (error) {
             console.error('Failed to submit data: ', error);
         }
@@ -54,6 +62,7 @@ function TodoForm() {
     const resetForm = () => {
         setTitle('');
         setComment('');
+        setDeadline('');
         setError(null);
     }
 
@@ -81,6 +90,15 @@ function TodoForm() {
                             type="text"
                             value={comment}
                             onChange={(e) => setComment(e.target.value)}
+                            required
+                        />
+                    </label>
+                    <label>
+                        Deadline:
+                        <input
+                            type="datetime-local"
+                            value={deadline}
+                            onChange={(e) => setDeadline(e.target.value)}
                             required
                         />
                     </label>
