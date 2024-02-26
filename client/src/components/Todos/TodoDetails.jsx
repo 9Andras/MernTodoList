@@ -91,10 +91,10 @@ function TodoDetails({todo}) {
     };
 
     const checkTodoDeadline = () => {
-        if (todo.deadline < Date.now() && todo.deadline !== null && !todo.done) {
+        if (new Date(todo.deadline).getTime() < Date.now() && todo.deadline !== null && !todo.done) {
             return (
                 <>
-                    <p style={{color: "red"}}><b>DEADLINE PASSED!</b></p>
+                    <p style={{color: "red"}}><b>DEADLINE MISSED!</b></p>
                     <p><u>was originally:</u></p>
                 </>
             );
