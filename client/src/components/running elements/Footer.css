@@ -1,0 +1,27 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  color: white;
+}
+
+.link-container {
+  display: flex;
+  justify-content: space-around;
+  width: 200px;
+  margin-bottom: 20px;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+}
+
+.contact-list {
+  text-align: center;
+}
+
+.contact-list ul {
+  text-align: left;
+}

@@ -1,11 +1,11 @@
-import React, {useState} from "react";
-import {useAuthContext} from "../../hooks/useAuthContext";
-import {useTodoContext} from "../../hooks/useTodoContext";
+import React, { useState } from "react";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { useTodoContext } from "../../hooks/useTodoContext";
 import Loading from "../Loading/Loading";
 
-function TodoDetails({todo}) {
-    const {dispatch} = useTodoContext();
-    const {user} = useAuthContext();
+function TodoDetails({ todo }) {
+    const { dispatch } = useTodoContext();
+    const { user } = useAuthContext();
 
     const [editingId, setEditingId] = useState(null);
     const [editTitle, setEditTitle] = useState('');
@@ -38,7 +38,7 @@ function TodoDetails({todo}) {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${user.token}`
                 },
-                body: JSON.stringify({title: editTitle, comment: editComment, deadline: editDeadline}),
+                body: JSON.stringify({ title: editTitle, comment: editComment, deadline: editDeadline }),
             });
             const updatedTodo = await response.json();
 
@@ -48,7 +48,7 @@ function TodoDetails({todo}) {
             }
 
             if (response.ok) {
-                dispatch({type: 'EDIT_TODO', payload: (updatedTodo)});
+                dispatch({ type: 'EDIT_TODO', payload: (updatedTodo) });
                 setEditingId(null);
                 setIsLoading(false);
             }
@@ -90,7 +90,7 @@ function TodoDetails({todo}) {
                 }
 
                 if (response.ok) {
-                    dispatch({type: 'DELETE_TODO', payload: {_id: todoId}});
+                    dispatch({ type: 'DELETE_TODO', payload: { _id: todoId } });
                     setIsLoading(false);
                 }
 
@@ -111,7 +111,7 @@ function TodoDetails({todo}) {
                     'Authorization': `Bearer ${user.token}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({done: !todo.done})
+                body: JSON.stringify({ done: !todo.done })
             });
             const data = await response.json();
 
@@ -122,7 +122,7 @@ function TodoDetails({todo}) {
             }
 
             if (response.ok) {
-                dispatch({type: 'MARK_TODO_DONE', payload: {_id: todoId}});
+                dispatch({ type: 'MARK_TODO_DONE', payload: { _id: todoId } });
                 setError(null);
                 setIsLoading(false);
             }
@@ -133,10 +133,10 @@ function TodoDetails({todo}) {
     };
 
     const checkTodoDeadline = () => {
-        if (new Date(todo.deadline).getTime() < Date.now() && todo.deadline !== null && !todo.done) {
+        if (todo.deadline !== null && !todo.done && new Date(todo.deadline).getTime() < Date.now()) {
             return (
                 <>
-                    <p style={{color: "red"}}><b>DEADLINE MISSED!</b></p>
+                    <p style={{ color: "red" }}><b>DEADLINE MISSED!</b></p>
                     <p><u>was originally:</u></p>
                 </>
             );
@@ -146,29 +146,29 @@ function TodoDetails({todo}) {
     return (
         <>
             {isLoading ? (
-                <Loading/>
+                <Loading />
             ) : (
                 <div className="todo-details">
                     {editingId === todo._id ? (
                         <>
                             <label>Title:</label>
-                            <br/>
+                            <br />
                             <input
                                 type="text"
                                 value={editTitle}
                                 onChange={e => setEditTitle(e.target.value)}
-                                required/>
-                            <br/>
+                                required />
+                            <br />
                             <label>Comment:</label>
-                            <br/>
+                            <br />
                             <input
                                 type="text"
                                 value={editComment}
                                 onChange={e => setEditComment(e.target.value)}
-                                required/>
-                            <br/>
+                                required />
+                            <br />
                             <label>Deadline:</label>
-                            <br/>
+                            <br />
                             <input
                                 type="datetime-local"
                                 value={editDeadline}
@@ -196,11 +196,11 @@ function TodoDetails({todo}) {
                         <div className={`todo-item ${todo.done ? 'done' : ''}`}>
                             <h4>{todo.title}</h4>
                             <p>{todo.comment}</p>
-                            <br/>
+                            <br />
                             <p><strong><u>Due</u>:
                             </strong>{checkTodoDeadline()} {todo.deadline === null ? 'not yet specified' : new Date(todo.deadline).toLocaleString()}
                             </p>
-                            <br/>
+                            <br />
                             <p><u>Added</u>: {new Date(todo.createdAt).toLocaleString()}</p>
                             <p>
                                 <u>Edited</u>: {todo.updatedAt === null ? 'not yet' : new Date(todo.updatedAt).toLocaleString()}
@@ -210,20 +210,20 @@ function TodoDetails({todo}) {
                                 id="todo-details__delete"
                                 title="delete"
                                 onClick={() => handleDeleteTodo(user.user._id, todo._id)}>delete
-                    </span>
+                            </span>
                             <span
                                 className="material-symbols-outlined"
                                 id="todo-details__edit"
                                 title="edit"
                                 onClick={() => editTodo(todo)}>edit
-                    </span>
+                            </span>
                             <span
                                 className="material-symbols-outlined"
                                 id="todo-details__checkbox"
                                 title={todo.done ? "mark undone" : "mark done"}
                                 onClick={() => toggleDone(user.user._id, todo._id)}>
-                        {todo.done ? 'check_box' : 'check_box_outline_blank'}
-                    </span>
+                                {todo.done ? 'check_box' : 'check_box_outline_blank'}
+                            </span>
                         </div>
                     )}
                 </div>

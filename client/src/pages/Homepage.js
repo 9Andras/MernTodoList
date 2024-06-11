@@ -1,14 +1,14 @@
-import React, {useEffect} from 'react';
-import {useTodoContext} from "../hooks/useTodoContext";
+import React, { useEffect } from 'react';
+import { useTodoContext } from "../hooks/useTodoContext";
 
 import TodoDetails from "../components/Todos/TodoDetails";
 import TodoForm from "../components/Todos/TodoForm";
-import {useAuthContext} from "../hooks/useAuthContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import Loading from "../components/Loading/Loading";
 
 function Homepage() {
-    const {todos, dispatch} = useTodoContext();
-    const {user} = useAuthContext();
+    const { todos, dispatch } = useTodoContext();
+    const { user } = useAuthContext();
 
 
     useEffect(() => {
@@ -23,7 +23,7 @@ function Homepage() {
                 console.log(data);
 
                 if (response.ok) {
-                    dispatch({type: 'SET_TODOS', payload: data})
+                    dispatch({ type: 'SET_TODOS', payload: data })
                 }
 
             } catch (error) {
@@ -43,15 +43,15 @@ function Homepage() {
                 <h2>My Todos</h2>
                 {todos ?
                     todos.map((todo) => (
-                        <TodoDetails key={todo._id} todo={todo}/>
+                        <TodoDetails key={todo._id} todo={todo} />
                     )) : (
                         <>
                             <h3>loading todos...</h3>
-                            <Loading/>
+                            <Loading />
                         </>
                     )}
             </div>
-            <TodoForm/>
+            <TodoForm />
         </div>
 
     );
